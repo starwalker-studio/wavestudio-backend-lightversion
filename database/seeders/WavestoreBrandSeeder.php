@@ -16,7 +16,7 @@ class WavestoreBrandSeeder extends Seeder
         $brands = [
             ['brand' => 'Fender'],
             ['brand' => 'Fodera'],
-            ['brand' => 'Idanez'],
+            ['brand' => 'Ibanez'],
             ['brand' => 'Sadowsky'],
             ['brand' => 'Warwick'],
             ['brand' => 'Yamaha'],
@@ -28,7 +28,6 @@ class WavestoreBrandSeeder extends Seeder
             ['brand' => 'Epiphone'],
             ['brand' => 'Gibson'],
             ['brand' => 'Jackson'],
-            ['brand' => 'Pearl'],
             ['brand' => 'Boss'],
             ['brand' => 'Hercules'],
             ['brand' => "D'Addario"],
