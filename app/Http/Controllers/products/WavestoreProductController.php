@@ -4,6 +4,7 @@ namespace App\Http\Controllers\products;
 
 use App\Http\Controllers\Controller;
 use App\Models\product\WavestoreProduct;
+use App\Services\product\ProductService;
 use Illuminate\Http\Request;
 
 class WavestoreProductController extends Controller
@@ -15,35 +16,42 @@ class WavestoreProductController extends Controller
         $query = WavestoreProduct::with('brand')->orderBy('id_brand', 'asc');
 
         $filters = $request->only([
+            'id_category',
             'id_brand',
             'in_stock',
             'min_price',
             'max_price',
         ]);
 
-        self::filterQuery($query, $filters);
+        ProductService::filterQuery($query, $filters);
 
         $paginator = $query->paginate($perPage);
 
         return response()->json($paginator);
     }
 
-    private static function filterQuery($query, $filters)
+    public function showItemID(WavestoreProduct $wavestoreProduct)
     {
-        if (isset($filters['in_stock'])) {
-            $query->where('in_stock', $filters['in_stock']);
-        }
+        return response()->json(
+            $wavestoreProduct->load('brand')
+        );
+    }
 
-        if (!empty($filters['id_brand'])) {
-            $query->whereIn('id_brand', $filters['id_brand']);
-        }
+    public function getPriceRange()
+    {
+        $min = WavestoreProduct::min('price');
+        $max = WavestoreProduct::max('price');
 
-        if (!empty($filters['min_price'])) {
-            $query->where('price', '>=', $filters['min_price']);
-        }
+        return response()->json([
+            'min_price' => $min,
+            'max_price' => $max
+        ]);
+    }
 
-        if (!empty($filters['max_price'])) {
-            $query->where('price', '<=', $filters['max_price']);
-        }
+    public function brandsByCategory($idCategory)
+    {
+        return response()->json(
+            ProductService::distinctCategory($idCategory)
+        );
     }
 }

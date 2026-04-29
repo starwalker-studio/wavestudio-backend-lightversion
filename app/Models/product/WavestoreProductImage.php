@@ -11,6 +11,11 @@ class WavestoreProductImage extends Model
 
     protected $fillable = ['item_ID', 'url', 'sort_order'];
 
+    public function getRouteKeyName(): string
+    {
+        return 'item_ID';
+    }
+
     public function product()
     {
         return $this->belongsTo(WavestoreProduct::class, 'item_ID', 'item_ID');

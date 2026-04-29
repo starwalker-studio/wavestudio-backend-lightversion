@@ -15,11 +15,12 @@ class DatabaseSeeder extends Seeder
      */
     public function run(): void
     {
-        // User::factory(10)->create();
-
-        User::factory()->create([
-            'name' => 'Test User',
-            'email' => 'test@example.com',
+        $this->call([
+            WavestoreBrandSeeder::class,
+            WavestoreCategorySeeder::class,
+            WavestoreProductSeeder::class,
+            WavestoreProductImageSeeder::class,
+            WavestoreUserSeeder::class,
         ]);
     }
 }

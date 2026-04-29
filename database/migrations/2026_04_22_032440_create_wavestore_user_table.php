@@ -20,6 +20,7 @@ return new class extends Migration
             $table->string('doc_type', 10)->nullable();
             $table->string('doc_number', 30)->nullable();
             $table->string('mp_customer_id', 100)->nullable();
+            $table->rememberToken();
             $table->timestamps();
         });
     }

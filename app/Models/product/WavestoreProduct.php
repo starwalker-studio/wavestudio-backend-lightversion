@@ -20,7 +20,11 @@ class WavestoreProduct extends Model
         'img',
     ];
 
-    // Relaciones
+    public function getRouteKeyName(): string
+    {
+        return 'item_ID';
+    }
+
     public function brand()
     {
         return $this->belongsTo(WavestoreBrand::class, 'id_brand');
